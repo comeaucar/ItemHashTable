@@ -27,7 +27,7 @@ public class Weapon {
         deleted = false;
     }
 
-    public Weapon(String n) { // other constructor easier for hashing
+    public Weapon(String n) { // other constructor easier for searching
         weaponName = n;
     }
 

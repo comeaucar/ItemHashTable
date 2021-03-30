@@ -11,18 +11,18 @@ package weaponshop;
  */
 public class ArrayManager {
 
-    private int maxItems;    // records the max size of the table
-    private int numItems;     // records number of items in the list
+    public int maxItems;    // records the max size of the table
+    public int numItems;     // records number of items in the list
     private ShopItem[] table; //hashtable itself
     private Hashing hash;
-    private double loadFactor;
+    public double loadFactor;
 
-    public ArrayManager(int size) {
+    public ArrayManager(int size, double loadFactor) {
         maxItems = size;
         numItems = 0;
         table = new ShopItem[maxItems];
         hash = new Hashing(maxItems);
-        loadFactor = 0.8;
+        this.loadFactor = loadFactor;
     }
 
     public int getNumItems() {
@@ -35,8 +35,10 @@ public class ArrayManager {
     }
 
     public void put(Weapon wp, int quantity) {
-
-        if ((numItems / maxItems) < loadFactor) {
+        
+        Double dNumItems = Double.valueOf(numItems);
+        Double dMaxItems = Double.valueOf(maxItems);
+        if ((dNumItems / dMaxItems) < loadFactor) {
             int startLoc = hash.hashFunction(wp);
             int count = 1;
             int loc = startLoc;

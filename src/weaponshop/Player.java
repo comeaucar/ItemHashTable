@@ -15,11 +15,11 @@ public class Player {
     public double money;
     public Backpack backpack;
 
-    public Player(String n, double m, int bpSize) {
+    public Player(String n, double m, int bpSize, double lf) {
         name = n;
         money = m;
         //numItems = 0;
-        backpack = new Backpack(bpSize);
+        backpack = new Backpack(bpSize, lf);
     }
 
     public void buy(Weapon w) {

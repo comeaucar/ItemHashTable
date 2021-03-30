@@ -6,16 +6,16 @@ public class Backpack {
     public int maxItems;
     public double currWeight;
     public double maxWeight;
-    public LinkedList[] table;
-    public Hashing hash;
+    private LinkedList[] table;
+    private Hashing hash;
     public double loadFactor;
 
-    public Backpack(int size) {
+    public Backpack(int size, double lf) {
         numItems = 0;
         maxItems = size;
         currWeight = 0;
         maxWeight = 90;
-        loadFactor = 0.82;
+        loadFactor = lf;
         table = new LinkedList[maxItems];
         hash = new Hashing(maxItems);
     }
@@ -27,7 +27,7 @@ public class Backpack {
         if ((dNumItems / dMaxItems) < loadFactor) {
 
             if (search(wp) != -1) {
-                table[search(wp)].addLast(wp);
+                table[search(wp)].addFront(wp);
                 currWeight += wp.weight;
                 numItems++;
                 return;
@@ -40,8 +40,9 @@ public class Backpack {
                 loc = (startLoc + count * count) % maxItems;
                 count++;
             }
+            
             table[loc] = new LinkedList();
-            table[loc].addLast(wp);
+            table[loc].addFront(wp);
             currWeight += wp.weight;
             numItems++;
         }

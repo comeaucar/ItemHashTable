@@ -75,7 +75,7 @@ public class WeaponShop {
     public static void showRoomMenu(ArrayManager ht, Player p) {
         System.out.println("WELCOME TO THE SHOWROOM!!!!");
         if (ht.getNumItems() == 0) {
-            System.out.println("There are no weapons in the shop");
+            System.out.println(" ** There are no weapons in the shop");
             System.out.println("Type 'end' to return to the main menu");
             return;
         }
@@ -87,7 +87,7 @@ public class WeaponShop {
     public static void showRoom(ArrayManager ht, Player p, Scanner sc) {
         String choice;
         showRoomMenu(ht, p);
-        choice = sc.next();
+        choice = sc.next().toLowerCase();
         while (choice.compareTo("end") != 0) {
             if (!choice.matches("[0-9]")) {
                 ShopItem si = ht.get(choice);
@@ -104,11 +104,11 @@ public class WeaponShop {
                             p.withdraw(si.item.cost);
                             si.numberInStock--;
                         } else {
-                            System.out.println("Item is out of stock!");
+                            System.out.println("\n** Item is out of stock!");
                         }
                     }
                 } else {
-                    System.out.println(" ** " + choice + " not found!! **");
+                    System.out.println("\n ** " + choice + " not found!! **");
                 }
             }
             showRoomMenu(ht, p);
@@ -232,8 +232,8 @@ public class WeaponShop {
         String pname;
         System.out.println("Please enter Player name:");
         pname = sc.next();
-        Player pl = new Player(pname, 45, 37);
-        ArrayManager ht = new ArrayManager(101);
+        Player pl = new Player(pname, 45, 37, 0.82);
+        ArrayManager ht = new ArrayManager(101, 0.8);
         mainMenuChoice(ht, pl, sc);
     }
 
