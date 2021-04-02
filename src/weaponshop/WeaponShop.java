@@ -1,6 +1,5 @@
 package weaponshop;
 
-import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class WeaponShop {
@@ -52,7 +51,7 @@ public class WeaponShop {
         System.out.print("Please enter the NAME of the Weapon ('end' to quit):");
         weaponName = sc.next().toLowerCase();
         while (weaponName.compareTo("end") != 0) {
-            if (!weaponName.matches("[0-9]")) {
+            if (!weaponName.matches("[0-9]")) { // check if weapon name contains integer
                 if (h.exists(weaponName) && h.get(weaponName).item.deleted == false) { // if weapon exists then only add quantity
                     System.out.println("That weapon already exists");
                     quantity = getInteger(sc, "Please enter amount of stock you would like to add:");
@@ -92,14 +91,14 @@ public class WeaponShop {
             if (!choice.matches("[0-9]")) {
                 ShopItem si = ht.get(choice);
                 if (si != null) {
-                    if (0 > (p.money - si.item.cost)) {
+                    if (0 > (p.money - si.item.cost)) { // check if buying item will put money below zero
                         System.out.println("\n** You can not afford this item! (" + si.item.weaponName +  ")\n");
-                    } else if (p.backpack.itemsMaxed(1)) {
+                    } else if (p.backpack.itemsMaxed(1)) { // check if backpack has space
                         System.out.println("\n** You don't have space for this item! (" + si.item.weaponName +  ")\n");
-                    } else if (p.backpack.weightMaxed(si.item.weight)) {
+                    } else if (p.backpack.weightMaxed(si.item.weight)) { //check if backpack will go overweight 
                         System.out.println("\n** Your backpack is too heavy for this item! (" + si.item.weaponName +  ")\n");
                     } else {
-                        if (si.numberInStock > 0) {
+                        if (si.numberInStock > 0) { //check if item has enough stock
                             p.buy(si.item);
                             p.withdraw(si.item.cost);
                             si.numberInStock--;
@@ -136,7 +135,7 @@ public class WeaponShop {
         while (choice.compareTo("end") != 0) {
             if (!choice.matches("[0-9]")) {
                 if (ht.exists(choice.toLowerCase())) {
-                    System.out.println("Are you sure you would like to delete the following ('y' or 'n')");
+                    System.out.println("Are you sure you would like to delete the following ('y' or any character for no)"); // confirmation for deletion 
                     System.out.println(ht.get(choice).toString());
                     confirmation = sc.next().toLowerCase();
                     if (confirmation.compareTo("y") == 0) {
@@ -180,7 +179,7 @@ public class WeaponShop {
         System.out.println("Here is " + p.name + "'s backpack! ('back' to return to main menu)");
         System.out.println("----------------------------------------");
         while (choice.compareTo("back") != 0) {
-            double weightPercent = Math.round(p.backpack.currWeight / p.backpack.maxWeight * 100);
+            double weightPercent = Math.round(p.backpack.currWeight / p.backpack.maxWeight * 100); // shows percentage of weight and items in backpack
             double itemPercent;
             if (p.backpack.itemsMaxed(1)) {
                 itemPercent = 100.00;
@@ -201,7 +200,7 @@ public class WeaponShop {
         choice = sc.next();
         while (choice.compareTo("end") != 0 && choice.compareTo("6") != 0) {
 
-            switch (choice) {
+            switch (choice) { // switch statement to determine menu choice
                 case "1":
                     addWeapons(ht, sc);
                     break;

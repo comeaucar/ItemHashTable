@@ -14,7 +14,7 @@ public class ArrayManager {
     public int maxItems;    // records the max size of the table
     public int numItems;     // records number of items in the list
     private ShopItem[] table; //hashtable itself
-    private Hashing hash;
+    private Hashing hash; // hashing class 
     public double loadFactor;
 
     public ArrayManager(int size, double loadFactor) {
@@ -36,7 +36,7 @@ public class ArrayManager {
 
     public void put(Weapon wp, int quantity) {
         
-        Double dNumItems = Double.valueOf(numItems);
+        Double dNumItems = Double.valueOf(numItems); // convert to double to compare to load factor
         Double dMaxItems = Double.valueOf(maxItems);
         if ((dNumItems / dMaxItems) < loadFactor) {
             int startLoc = hash.hashFunction(wp);
@@ -66,7 +66,7 @@ public class ArrayManager {
     }
 
     public ShopItem get(String weaponName) {
-        Weapon tempWep = new Weapon(weaponName);
+        Weapon tempWep = new Weapon(weaponName); // creates weapon object with just name to find weapon in store
         if (search(tempWep) != -1) {
             return table[search(tempWep)];
         }
@@ -90,12 +90,10 @@ public class ArrayManager {
     }
 
     public void printTable() {
-        int count = 0;
         for (int x = 0; x < maxItems; x++) {
-            if (table[x] != null && table[x].item.deleted == false) {
+            if (table[x] != null && table[x].item.deleted == false && table[x].numberInStock > 0) {
                 System.out.println("Name: " + table[x].item.weaponName + "   Damage:" + table[x].item.damage + "    Cost:" + table[x].item.cost + "     Quantity in stock:" + table[x].numberInStock);
             }
         }
     }
-
 }
