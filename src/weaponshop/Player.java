@@ -22,13 +22,13 @@ public class Player {
         backpack = new Backpack(bpSize, lf);
     }
 
-    public void buy(Weapon w) {
+    public void buy(ShopItem si) {
         if (backpack.itemsMaxed(1)) {
             System.out.println("You have no more room in your backpack!");
             return;
         }
-
-        System.out.println(w.weaponName + " bought...");
+        Weapon w = si.item;
+        System.out.println("\n ** " + w.weaponName + " bought...\n");
         backpack.add(w);
         System.out.println("Number of items you own: " + backpack.numItems);
     }
