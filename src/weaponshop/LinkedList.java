@@ -29,7 +29,30 @@ public class LinkedList {
         while (curr.next != null) {
             curr = curr.next;
         }
-        numItems++;
         curr.next = newNode;
+        numItems++;
     }
+    
+    public Weapon search(Weapon data){
+        if(head == null){
+            return null;
+        }
+        Node curr = head;
+        while(curr != null && curr.data != data){
+            curr = curr.next;
+        }
+        if(curr == null){
+            return null;
+        }
+        return curr.data;
+    }
+    
+    public void printList(){
+        Object[] arr;
+        Node curr = head;
+        while(curr != null){
+            System.out.println(curr.data.toString());
+            curr = curr.next;
+        }
+    }  
 }

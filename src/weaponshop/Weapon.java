@@ -26,5 +26,11 @@ public class Weapon {
         cost = c;
         deleted = false;
     }
+    
+    @Override
+    public String toString(){
+        String s = "Weapon Name:" + weaponName + "  Damage:" + damage + "  Range:" + range + "  Weight:" + weight;
+        return s;
+    }
 
 }

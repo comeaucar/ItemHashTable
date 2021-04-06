@@ -25,24 +25,14 @@ public class Backpack {
         Double dNumItems = Double.valueOf(numItems);
         Double dMaxItems = Double.valueOf(maxItems);
         if ((dNumItems / dMaxItems) < loadFactor) {
-
-            int searchLoc = search(wp);
-            if (searchLoc != -1) {
-                table[searchLoc].addFront(wp);
+            int loc = hash.hashFunction(wp);
+            if(table[loc] == null){
+                table[loc] = new LinkedList();
+                table[loc].addFront(wp);
                 currWeight += wp.weight;
                 numItems++;
                 return;
             }
-
-            int startLoc = hash.hashFunction(wp);
-            int count = 1;
-            int loc = startLoc;
-            while (table[loc] != null && table[loc].head.data.weaponName.compareTo(wp.weaponName) != 0) {
-                loc = (startLoc + count * count) % maxItems;
-                count++;
-            }
-
-            table[loc] = new LinkedList();
             table[loc].addFront(wp);
             currWeight += wp.weight;
             numItems++;
@@ -50,17 +40,14 @@ public class Backpack {
     }
 
     public int search(Weapon wp) {
-        int startLoc = hash.hashFunction(wp);
-        int count = 1;
-        int loc = startLoc;
-        while (table[loc] != null && table[loc].head.data.weaponName.compareTo(wp.weaponName) != 0) {
-            loc = (startLoc + count * count) % maxItems;
-            count++;
-        }
-        if (table[loc] == null) {
+        int loc = hash.hashFunction(wp);
+        if(table[loc] == null){
             return -1;
         }
-        return loc;
+        if(table[loc].search(wp) != null){
+            return loc;
+        }
+        return -1;
     }
 
     public boolean weightMaxed(double inWeight) { // checks if weight of weapon to be purchased will make backpack go overweight
@@ -83,8 +70,7 @@ public class Backpack {
         }
         for (int i = 0; i < maxItems; i++) {
             if (table[i] != null) {
-                System.out.println("\nWeapon:" + table[i].head.data.weaponName + "\nRange:" + table[i].head.data.range
-                        + " Damage:" + table[i].head.data.damage + " Weight:" + table[i].head.data.weight + " Number owned:" + table[i].numItems);
+                table[i].printList();
             }
         }
     }
